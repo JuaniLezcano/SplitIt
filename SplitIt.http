@@ -1,0 +1,6 @@
+@SplitIt_HostAddress = http://localhost:5227
+
+GET {{SplitIt_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
