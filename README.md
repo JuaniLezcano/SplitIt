@@ -1,10 +1,10 @@
-# SplitIt ??
+# SplitIt
 
 SplitIt es una aplicación diseñada para simplificar la gestión de gastos compartidos dentro de un grupo de personas. El objetivo principal es ofrecer una visualización clara y concisa de cuánto dinero debe cada miembro del grupo y a quiénes corresponde realizar esos pagos. Es importante destacar que SplitIt se enfoca únicamente en la visualización de estas deudas y no gestiona transferencias monetarias reales.
 
 ---
 
-## ?? Características Principales
+## Características Principales
 
 * **Creación de Grupos:** Permite crear grupos e incluir múltiples usuarios en ellos.
 * **Registro de Gastos:** Facilita el registro de los gastos que se comparten entre los miembros del grupo.
@@ -15,20 +15,20 @@ SplitIt es una aplicación diseñada para simplificar la gestión de gastos compart
 
 ---
 
-## ?? Tecnologías Utilizadas
+## Tecnologías Utilizadas
 
 * **Framework:** .NET 8
 * **Lenguaje de Programación:** C#
 * **Arquitectura del Software:** Clean Architecture
 * **ORM:** Entity Framework Core
 * **Base de Datos:** PostgreSQL
-# SplitIt ??
+# SplitIt
 
 SplitIt es una aplicación diseñada para simplificar la gestión de gastos compartidos dentro de un grupo de personas. El objetivo principal es ofrecer una visualización clara y concisa de cuánto dinero debe cada miembro del grupo y a quiénes corresponde realizar esos pagos. Es importante destacar que SplitIt se enfoca únicamente en la visualización de estas deudas y no gestiona transferencias monetarias reales.
 
 ---
 
-## ?? Características Principales
+## Características Principales
 
 * **Creación de Grupos:** Permite crear grupos e incluir múltiples usuarios en ellos.
 * **Registro de Gastos:** Facilita el registro de los gastos que se comparten entre los miembros del grupo.
@@ -39,7 +39,7 @@ SplitIt es una aplicación diseñada para simplificar la gestión de gastos compart
 
 ---
 
-## ?? Tecnologías Utilizadas
+## Tecnologías Utilizadas
 
 * **Framework:** .NET 8
 * **Lenguaje de Programación:** C#
