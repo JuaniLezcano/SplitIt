@@ -16,6 +16,5 @@ namespace SplitIt.Domain.Entities
         public Expense? Expense { get; set; }
 
         public decimal Amount { get; set; }
-        public DateTime PaidAt { get; set; } = DateTime.UtcNow;
     }
 }

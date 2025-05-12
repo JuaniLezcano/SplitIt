@@ -8,6 +8,7 @@ namespace SplitIt.Domain.Enums
 {
     public enum ExpenseType
     {
-        Equal
+        Equal,
+        ExactAmount
     }
 }

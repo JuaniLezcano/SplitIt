@@ -13,7 +13,8 @@ namespace SplitIt.Domain.Entities
         public string Name { get; set; } = default!;
         public string Email { get; set; } = default!;
 
-        public ICollection<Group> Groups { get; set; } = new List<Group>();
+        public Guid UserGroupid { get; set; }
+        public UserGroup? UserGroup { get; set; }
         public ICollection<Payment> Payments { get; set; } = new List<Payment>();
     }
 }
