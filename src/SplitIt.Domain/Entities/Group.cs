@@ -11,8 +11,7 @@ namespace SplitIt.Domain.Entities
     {
         public string Name { get; set; } = default!;
         public string Description { get; set; } = default!;
-        public Guid UserGroupId { get; set; }
-        public UserGroup? UserGroup { get; set; }
+        public ICollection<UserGroup> UserGroups { get; set; } = new List<UserGroup>();
         public ICollection<Expense> Expenses { get; set; } = new List<Expense>();
     }
 }

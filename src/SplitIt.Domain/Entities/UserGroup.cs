@@ -9,8 +9,11 @@ namespace SplitIt.Domain.Entities
 {
     public class UserGroup : BaseEntity
     {
-        public ICollection<User> Users { get; set; } = new List<User>();
-        public ICollection<Group> Groups { get; set; } = new List<Group>();
+        public Guid UserId { get; set; }
+        public User User { get; set; } = default!;
+
+        public Guid GroupId { get; set; }
+        public Group Group { get; set; } = default!;
 
     }
 }
