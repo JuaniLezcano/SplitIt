@@ -12,6 +12,32 @@ builder.Services.AddDbContext<SplitItDbContext>(options =>
 
 var app = builder.Build();
 
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<SplitItDbContext>();
+        // Intenta realizar una operación básica para verificar la conexión
+        if (context.Database.CanConnect())
+        {
+            var logger = services.GetRequiredService<ILogger<Program>>();
+            logger.LogInformation("Conexión a la base de datos exitosa.");
+        }
+        else
+        {
+            var logger = services.GetRequiredService<ILogger<Program>>();
+            logger.LogError("No se pudo conectar a la base de datos.");
+        }
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "Error al intentar conectar a la base de datos.");
+    }
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
