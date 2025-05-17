@@ -6,6 +6,7 @@ namespace SplitIt.Domain.Entities
     {
         public string Name { get; set; } = default!;
         public string Email { get; set; } = default!;
+        public string Password { get; set; } = default!;
         public ICollection<UserGroup> UserGroups { get; set; } = new List<UserGroup>();
         public ICollection<Payment> Payments { get; set; } = new List<Payment>();
     }
