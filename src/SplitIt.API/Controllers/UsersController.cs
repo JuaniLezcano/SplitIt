@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SplitIt.Application.Users.DTOs;
 using SplitIt.Application.Users.UseCases;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -61,6 +62,64 @@ public class UsersController : ControllerBase
         catch (Exception ex)
         {
             return StatusCode(500, new { Error = "Ocurrió un error inesperado.", Details = ex.Message });
+        }
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetByEmail(string email)
+    {
+        try
+        {
+            var recoveredUser = await _getUserByEmail.GetByEmailAsync(email);
+            return Ok(recoveredUser);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return NotFound(new { Error = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { Errors = "Ocurrió un error inesperado.", Details = ex.Message });
+        }
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetByID(Guid userId)
+    {
+        try
+        {
+            var recoveredUser = await _getUserById.GetByIdAsync(userId);
+            return Ok(recoveredUser);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return NotFound(new { Error = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { Errors = "Ocurrió un error inesperado.", Details = ex.Message });
+        }
+    }
+
+    [HttpPatch]
+    public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDTO dto)
+    {
+        try
+        {
+            var updatedUserId = await _updateUser.UpdateAsync(dto);
+            return Ok(updatedUserId);
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return NotFound(new { Error = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { Errors = "Ocurrió un error inesperado.", Details = ex.Message });
         }
     }
 }
