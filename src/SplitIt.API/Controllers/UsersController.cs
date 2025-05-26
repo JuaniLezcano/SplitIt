@@ -65,7 +65,7 @@ public class UsersController : ControllerBase
         }
     }
 
-    [HttpGet]
+    [HttpGet("byemail/{email}")]
     public async Task<IActionResult> GetByEmail(string email)
     {
         try
@@ -83,7 +83,7 @@ public class UsersController : ControllerBase
         }
     }
 
-    [HttpGet]
+    [HttpGet("{userId}")]
     public async Task<IActionResult> GetByID(Guid userId)
     {
         try
