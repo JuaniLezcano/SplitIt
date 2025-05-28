@@ -14,6 +14,11 @@ namespace SplitIt.Application.Users.UseCases
 
         public async Task<GetUserDTO> GetByEmailAsync(string email)
         {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                throw new ArgumentException("El email no puede ser nulo o vacío.", nameof(email));
+            }
+
             var existingUser = await _userRepository.GetByEmailAsync(email);
             if (existingUser != null)
             {

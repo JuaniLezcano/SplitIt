@@ -1,20 +1,22 @@
 ﻿using SplitIt.Application.Interfaces;
-using SplitIt.Domain.Entities;
 using SplitIt.Application.Users.DTOs;
+using SplitIt.Domain.Entities;
+
 namespace SplitIt.Application.Users.UseCases
 {
     public class RegisterUserInteractor
     {
         private readonly IUserRepository _userRepository;
+        private readonly IAuthService _authService;
 
-        public RegisterUserInteractor(IUserRepository userRepository)
+        public RegisterUserInteractor(IUserRepository userRepository, IAuthService authService)
         {
             _userRepository = userRepository;
+            _authService = authService;
         }
 
         public async Task<Guid> AddAsync(RegisterUserDTO dto)
         {
-            // Validación simple si el usuario ya existe en el sistema
             var existingUser = await _userRepository.GetByEmailAsync(dto.Email);
             if (existingUser is not null)
                 throw new InvalidOperationException("El email ya está registrado");
@@ -24,9 +26,10 @@ namespace SplitIt.Application.Users.UseCases
                 Id = Guid.NewGuid(),
                 Name = dto.Name,
                 Email = dto.Email,
-                Password = dto.Password, // Encripta en dominio o aquí según diseño
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = DateTime.UtcNow,
             };
+
+            user.Password = _authService.HashPassword(user, dto.Password);
 
             await _userRepository.AddAsync(user);
             return user.Id;

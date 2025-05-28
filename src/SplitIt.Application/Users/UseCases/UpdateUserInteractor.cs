@@ -6,10 +6,12 @@ namespace SplitIt.Application.Users.UseCases
     public class UpdateUserInteractor
     {
         private readonly IUserRepository _userRepository;
+        private readonly IAuthService _authService;
 
-        public UpdateUserInteractor(IUserRepository userRepository)
+        public UpdateUserInteractor(IUserRepository userRepository, IAuthService authService)
         {
             _userRepository = userRepository;
+            _authService = authService;
         }
 
         public async Task<Guid> UpdateAsync(UpdateUserDTO dto)
@@ -32,7 +34,7 @@ namespace SplitIt.Application.Users.UseCases
 
             if (dto.Password is not null)
             {
-                getUser.Password = dto.Password;
+                getUser.Password = _authService.HashPassword(getUser, dto.Password);
                 modified = true;
             }
 
