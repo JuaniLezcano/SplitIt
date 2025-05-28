@@ -30,9 +30,10 @@ namespace SplitIt.Persistence.Repositories
         public async Task DeleteAsync(Guid id)
         {
             var entity = await _context.Set<T>().FindAsync(id);
-            if (entity == null)
-                return;
-                //throw new NotFoundException($"{typeof(T).Name} with id {id} not found");
+            if (entity == null) 
+            {
+                throw new InvalidOperationException($"{typeof(T).Name} with id {id} not found");
+            }
 
             _context.Set<T>().Remove(entity);
             await _context.SaveChangesAsync();
