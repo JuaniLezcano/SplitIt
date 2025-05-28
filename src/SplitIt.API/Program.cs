@@ -20,6 +20,7 @@ builder.Services.AddDbContext<SplitItDbContext>(options =>
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<LoginUserInteractor>();
 builder.Services.AddScoped<RegisterUserInteractor>();
 builder.Services.AddScoped<DeleteUserInteractor>();
 builder.Services.AddScoped<GetUserByEmailInteractor>();
