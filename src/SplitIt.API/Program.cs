@@ -3,6 +3,7 @@ using SplitIt.Persistence;
 using SplitIt.Application.Interfaces;
 using SplitIt.Persistence.Repositories;
 using SplitIt.Application.Users.UseCases;
+using SplitIt.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddDbContext<SplitItDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<RegisterUserInteractor>();
