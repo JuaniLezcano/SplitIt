@@ -19,7 +19,21 @@ SplitIt es una aplicación diseñada para simplificar la gestión de gastos comp
 
 * **Framework:** .NET 9
 * **Lenguaje de Programación:** C#
-* **Arquitectura del Software:** Clean Architecture
 * **ORM:** Entity Framework Core
 * **Base de Datos:** PostgreSQL
 * **Contenerización:** Docker / Docker Compose
+
+## Levantar el entorno en desarrollo
+
+* Levantar la base de datos con el docker compose.
+
+```bash
+docker compose up -d
+```
+
+* Luego de eso, correr la aplicación desde el IDE. (En un futuro se integrara todo en el docker compose)
+* Levantar las migraciones correspondientes creadas con EF y plasmarlas en la BD
+
+```bash
+dotnet ef database update --project src/SplitIt.Persistence --startup-project src/SplitIt.API
+```

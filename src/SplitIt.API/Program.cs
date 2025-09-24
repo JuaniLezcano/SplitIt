@@ -36,6 +36,7 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var context = services.GetRequiredService<SplitItDbContext>();
+        context.Database.Migrate();
         // Intenta realizar una operación básica para verificar la conexión
         if (context.Database.CanConnect())
         {
