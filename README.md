@@ -28,12 +28,7 @@ SplitIt es una aplicación diseñada para simplificar la gestión de gastos comp
 * Levantar la base de datos con el docker compose.
 
 ```bash
-docker compose up -d
+docker compose up --build -d
 ```
 
-* Luego de eso, correr la aplicación desde el IDE. (En un futuro se integrara todo en el docker compose)
-* Levantar las migraciones correspondientes creadas con EF y plasmarlas en la BD
-
-```bash
-dotnet ef database update --project src/SplitIt.Persistence --startup-project src/SplitIt.API
-```
+* localhost:5000/swagger
