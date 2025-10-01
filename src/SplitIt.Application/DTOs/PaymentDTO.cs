@@ -3,6 +3,6 @@
     internal class PaymentDTO
     {
         public Guid UserId { get; set; }
-        public float Amount { get; set; }
+        public decimal Amount { get; set; }
     }
 }
