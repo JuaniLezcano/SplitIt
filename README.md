@@ -17,7 +17,7 @@ SplitIt es una aplicación diseñada para simplificar la gestión de gastos comp
 
 ## Tecnologías Utilizadas
 
-* **Framework:** .NET 9
+* **Framework:** .NET 10
 * **Lenguaje de Programación:** C#
 * **ORM:** Entity Framework Core
 * **Base de Datos:** PostgreSQL
