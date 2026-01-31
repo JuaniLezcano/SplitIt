@@ -5,7 +5,7 @@ namespace SplitIt.Application.Users.UseCases
 {
     public class UpdateUserInteractor
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserRepository     _userRepository;
         private readonly IAuthService _authService;
 
         public UpdateUserInteractor(IUserRepository userRepository, IAuthService authService)
