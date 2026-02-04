@@ -20,7 +20,8 @@ builder.Services.AddDbContext<SplitItDbContext>(options =>
 
 builder.Services.AddScoped<IQuickSplitEqualService, QuickSplitEqualService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IPaymentRepository, UserRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<LoginUserInteractor>();
 builder.Services.AddScoped<RegisterUserInteractor>();

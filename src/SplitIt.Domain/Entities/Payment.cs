@@ -4,8 +4,8 @@ namespace SplitIt.Domain.Entities
 {
     public class Payment : BaseEntity
     {
-        public Guid UserId { get; set; }
-        public User? User { get; set; }
+        public Guid UserGroupId { get; set; }
+        public UserGroup? UserGroup { get; set; }
 
         public Guid ExpenseId { get; set; }
         public Expense? Expense { get; set; }
