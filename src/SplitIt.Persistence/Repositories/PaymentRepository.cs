@@ -4,7 +4,7 @@ using SplitIt.Domain.Entities;
 
 namespace SplitIt.Persistence.Repositories
 {
-    public class PaymentRepository : GenericRepository<User>, IPaymentRepository
+    public class PaymentRepository : GenericRepository<Payment>, IPaymentRepository
     {
         private readonly SplitItDbContext _context;
 

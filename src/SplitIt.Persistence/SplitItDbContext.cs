@@ -14,12 +14,17 @@ public class SplitItDbContext : DbContext
     public DbSet<Group> Groups { get; set; }
     public DbSet<Payment> Payments { get; set; }
     public DbSet<UserGroup> UserGroups { get; set; }
+    public DbSet<ExpenseSplit> ExpenseSplits { get; set; }  
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // Configuración de UserGroup con PK compuesta
+        // -------- UserGroup -------- 
         modelBuilder.Entity<UserGroup>()
-            .HasKey(ug => new { ug.UserId, ug.GroupId });
+            .HasKey(ug => ug.Id);
+
+        modelBuilder.Entity<UserGroup>()
+            .HasIndex(ug => new { ug.UserId, ug.GroupId })
+            .IsUnique();
 
         modelBuilder.Entity<UserGroup>()
             .HasOne(ug => ug.User)
@@ -33,11 +38,12 @@ public class SplitItDbContext : DbContext
             .HasForeignKey(ug => ug.GroupId)
             .OnDelete(DeleteBehavior.Cascade); // Si se elimina un grupo, se eliminan sus relaciones con usuarios
 
+        // -------- Expense --------
         modelBuilder.Entity<Expense>()
-            .HasOne(u => u.CreatedBy)
-            .WithMany()
-            .HasForeignKey(u => u.CreatedById)
-            .OnDelete(DeleteBehavior.Restrict); // Evita que se borre un usuario si tiene gastos creados
+            .HasOne(e => e.CreatedByUserGroup)
+            .WithMany(ug => ug.CreatedExpenses)
+            .HasForeignKey(e => e.CreatedByUserGroupId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Expense>()
             .HasOne(e => e.Group)
@@ -45,15 +51,60 @@ public class SplitItDbContext : DbContext
             .HasForeignKey(e => e.GroupId)
             .OnDelete(DeleteBehavior.Cascade); // Si se borra el grupo, se borran los gastos
 
+        modelBuilder.Entity<Expense>()
+            .Property(e => e.Type)
+            .HasConversion<string>();
+
+        modelBuilder.Entity<Expense>()
+            .Property(e => e.Amount)
+            .HasPrecision(18, 2);
+
+        // -------- Payment --------
         modelBuilder.Entity<Payment>()
-            .HasOne(p => p.User)
-            .WithMany(u => u.Payments)
-            .HasForeignKey(p => p.UserId)
-            .OnDelete(DeleteBehavior.Restrict); // No permitir borrar un usuario si tiene pagos
+            .HasOne(p => p.UserGroup)
+            .WithMany(ug => ug.Payments)
+            .HasForeignKey(p => p.UserGroupId)
+            .OnDelete(DeleteBehavior.Restrict); // No borrar UserGroup si tiene pagos
+
+        modelBuilder.Entity<Payment>()
+            .HasOne(p => p.Expense)
+            .WithMany(e => e.Payments)
+            .HasForeignKey(p => p.ExpenseId)
+            .OnDelete(DeleteBehavior.Cascade);  // Borrar pagos si se borra el gasto
 
         modelBuilder.Entity<Expense>()
             .Property(e => e.Type)
             .HasConversion<string>();
+
+        // ---------- ExpenseSplit ----------
+        modelBuilder.Entity<ExpenseSplit>()
+            .HasKey(es => es.Id);
+
+        // Un split por usuario-en-grupo por gasto (evita duplicados)
+        modelBuilder.Entity<ExpenseSplit>()
+            .HasIndex(es => new { es.ExpenseId, es.UserGroupId })
+            .IsUnique();
+
+        modelBuilder.Entity<ExpenseSplit>()
+            .HasOne(es => es.Expense)
+            .WithMany(e => e.ExpenseSplits)
+            .HasForeignKey(es => es.ExpenseId)
+            .OnDelete(DeleteBehavior.Cascade); // si borrás el gasto, borrás sus splits
+
+        modelBuilder.Entity<ExpenseSplit>()
+            .HasOne(es => es.UserGroup)
+            .WithMany(ug => ug.ExpenseSplits)
+            .HasForeignKey(es => es.UserGroupId)
+            .OnDelete(DeleteBehavior.Restrict); // evita borrar un UserGroup si tiene historial
+
+        modelBuilder.Entity<ExpenseSplit>()
+            .Property(es => es.OwedAmount)
+            .HasPrecision(18, 2);
+
+        // -------- User --------
+        modelBuilder.Entity<User>()
+            .HasIndex(u => u.Email)
+            .IsUnique();
 
         // Permite la convencion de las tablas en singular, manejando las colecciones del DbSet en plural.
         base.OnModelCreating(modelBuilder);
