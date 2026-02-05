@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SplitIt.API;
+using SplitIt.Application.Groups.UseCases;
 using SplitIt.Application.Interfaces;
 using SplitIt.Application.Services;
 using SplitIt.Application.Users.UseCases;
@@ -22,12 +23,19 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
+// Auth Interactors
 builder.Services.AddScoped<LoginUserInteractor>();
 builder.Services.AddScoped<RegisterUserInteractor>();
+
+// User Interactors
 builder.Services.AddScoped<DeleteUserInteractor>();
 builder.Services.AddScoped<GetUserByEmailInteractor>();
 builder.Services.AddScoped<GetUserByIdInteractor>();
 builder.Services.AddScoped<UpdateUserInteractor>();
+
+// Group Interactors
+builder.Services.AddScoped<CreateGroupWithMembersInteractor>();
+
 
 var app = builder.Build();
 
