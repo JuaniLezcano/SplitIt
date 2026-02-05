@@ -67,7 +67,7 @@ public static class DataSeeder
             Group = family,
             CreatedByUserGroup = ugJuani,
             Amount = 10000m,
-            Type = SplitIt.Domain.Enums.ExpenseType.Equal
+            Type = Domain.Enums.ExpenseType.Equal
         };
 
         // ---------- ExpenseSplits ----------

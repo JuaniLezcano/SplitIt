@@ -5,7 +5,7 @@ namespace SplitIt.Application.Users.UseCases
 {
     public class UpdateUserInteractor
     {
-        private readonly IUserRepository     _userRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IAuthService _authService;
 
         public UpdateUserInteractor(IUserRepository userRepository, IAuthService authService)
@@ -14,7 +14,7 @@ namespace SplitIt.Application.Users.UseCases
             _authService = authService;
         }
 
-        public async Task<Guid> UpdateAsync(UpdateUserDTO dto)
+        public async Task<Guid> UpdateAsync(Guid userId, UpdateUserDTO dto)
         {
             // Validación para que el DTO venga con datos para actualizar
             if (dto.Name is null && dto.Password is null)
@@ -22,27 +22,27 @@ namespace SplitIt.Application.Users.UseCases
 
             bool modified = false;
 
-            var getUser = await _userRepository.GetByIdAsync(dto.Id);
-            if (getUser == null)
+            var user = await _userRepository.GetByIdAsync(userId);
+            if (user == null)
                 throw new InvalidOperationException("El usuario no se encuentra en el sistema");
 
             if (dto.Name is not null)
             {
-                getUser.Name = dto.Name;
+                user.Name = dto.Name;
                 modified = true;
             }
 
             if (dto.Password is not null)
             {
-                getUser.Password = _authService.HashPassword(getUser, dto.Password);
+                user.Password = _authService.HashPassword(user, dto.Password);
                 modified = true;
             }
 
             if (!modified)
                 throw new InvalidOperationException("No se detectaron cambios para actualizar.");
 
-            await _userRepository.UpdateAsync(getUser);
-            return getUser.Id;
+            await _userRepository.UpdateAsync(user);
+            return user.Id;
         }
     }
 }

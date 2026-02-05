@@ -24,12 +24,12 @@ public class UsersController : ControllerBase
         _updateUser = updateUser;
     }
 
-    [HttpDelete]
-    public async Task<IActionResult> Delete([FromBody] DeleteUserDTO dto)
+    [HttpDelete("{userId:guid}")]
+    public async Task<IActionResult> Delete(Guid userId)
     {
         try
         {
-            var deletedUserId = await _deleteUser.DeleteAsync(dto);
+            var deletedUserId = await _deleteUser.DeleteAsync(userId);
             return Ok(new { Id = deletedUserId, Message = "Usuario eliminado correctamente." });
         }
         catch (InvalidOperationException ex)
@@ -60,7 +60,7 @@ public class UsersController : ControllerBase
         }
     }
 
-    [HttpGet("{userId}")]
+    [HttpGet("{userId:guid}")]
     public async Task<IActionResult> GetByID(Guid userId)
     {
         try
@@ -78,12 +78,12 @@ public class UsersController : ControllerBase
         }
     }
 
-    [HttpPatch]
-    public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDTO dto)
+    [HttpPatch("{userId:guid}")]
+    public async Task<IActionResult> UpdateUser(Guid userId, [FromBody] UpdateUserDTO dto)
     {
         try
         {
-            var updatedUserId = await _updateUser.UpdateAsync(dto);
+            var updatedUserId = await _updateUser.UpdateAsync(userId, dto);
             return Ok(updatedUserId);
         }
         catch (ArgumentException ex)

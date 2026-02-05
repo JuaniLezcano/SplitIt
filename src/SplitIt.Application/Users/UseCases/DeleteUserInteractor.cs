@@ -12,14 +12,14 @@ namespace SplitIt.Application.Users.UseCases
             _userRepository = userRepository;
         }
 
-        public async Task<Guid> DeleteAsync(DeleteUserDTO dto)
+        public async Task<Guid> DeleteAsync(Guid userId)
         {
-            var getUser = await _userRepository.GetByIdAsync(dto.Id);
+            var getUser = await _userRepository.GetByIdAsync(userId);
             if (getUser == null)
                 throw new InvalidOperationException("El usuario no se encuentra en el sistema");
 
-            await _userRepository.DeleteAsync(dto.Id);
-            return dto.Id;
+            await _userRepository.DeleteAsync(userId);
+            return userId;
         }
     }
 }
