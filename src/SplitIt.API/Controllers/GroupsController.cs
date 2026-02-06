@@ -8,10 +8,12 @@ using SplitIt.Persistence;
 public class GroupsController : ControllerBase
 {
     private readonly CreateGroupWithMembersInteractor _create;
+    private readonly GetGroupMembersInteractor _getMembers;
 
-    public GroupsController(CreateGroupWithMembersInteractor create)
+    public GroupsController(CreateGroupWithMembersInteractor create, GetGroupMembersInteractor getMembers)
     {
         _create = create;
+        _getMembers = getMembers;
     }
 
     [HttpPost]
@@ -19,5 +21,12 @@ public class GroupsController : ControllerBase
     {
         var groupId = await _create.ExecuteAsync(req);
         return Ok(new { GroupId = groupId });
+    }
+
+    [HttpGet("{groupId:guid}")]
+    public async Task<IActionResult> GetMembers(Guid groupId)
+    {
+        var members = await _getMembers.ExecuteAsync(groupId);
+        return Ok(members);
     }
 }

@@ -21,6 +21,7 @@ builder.Services.AddScoped<IQuickSplitEqualService, QuickSplitEqualService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+builder.Services.AddScoped<IGroupRepository, GroupRepository>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 // Auth Interactors
@@ -35,6 +36,7 @@ builder.Services.AddScoped<UpdateUserInteractor>();
 
 // Group Interactors
 builder.Services.AddScoped<CreateGroupWithMembersInteractor>();
+builder.Services.AddScoped<GetGroupMembersInteractor>();
 
 
 var app = builder.Build();
