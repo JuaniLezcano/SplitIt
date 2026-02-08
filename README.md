@@ -32,3 +32,11 @@ docker compose up --build -d
 ```
 
 * localhost:5000/swagger
+
+## Entidades Principales	
+* **User:** Representa a usuarios del sistema.
+* **Group:** Representa un conjunto de usuarios que comparten gastos.
+* **UserGroup:** Entidad intermedia que asocia usuarios con grupos.
+* **Payment:** Representa un pago realizado por uno o más usuarios para cubrir un gasto específico.
+* **Expense:** Representa un gasto realizado dentro de un grupo, incluyendo detalles como el monto (sumatoria de payments), la descripción y la fecha.
+* **ExpenseSplit:** Representa la división de un gasto entre los miembros del grupo, indicando cuánto debe cada usuario por ese gasto. La idea es que cada vez que se registre un nuevo gasto, se cree automáticamente una entrada en ExpenseSplit para cada usuario del grupo, calculando cuánto debe cada uno en función del monto total del gasto y el número de participantes.
