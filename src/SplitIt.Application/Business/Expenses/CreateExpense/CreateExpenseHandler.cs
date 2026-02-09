@@ -1,28 +1,28 @@
-﻿using SplitIt.Application.Expenses.DTOs;
-using SplitIt.Application.Interfaces;
+﻿using SplitIt.Application.Interfaces;
 using SplitIt.Domain.Entities;
+using SplitIt.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SplitIt.Application.Expenses;
-public class CreateExpenseInteractor
+namespace SplitIt.Application.Business.Expenses.CreateExpense;
+public class CreateExpenseHandler
 {
     private readonly IGenericRepository<Expense> _genericRepo;
 
-    public CreateExpenseInteractor(IGenericRepository<Expense> genericRepo)
+    public CreateExpenseHandler(IGenericRepository<Expense> genericRepo)
     {
         _genericRepo = genericRepo;
     }
 
-    public async Task<Guid> ExecuteAsync(CreateExpenseDTO dto)
+    public async Task<Guid> ExecuteAsync(CreateExpenseCommand dto)
     {
         if (dto == null)
             throw new ArgumentNullException(nameof(dto));
         if (string.IsNullOrWhiteSpace(dto.Description))
             throw new ArgumentException("La descripción del gasto es obligatoria.");
-        if (dto.Amount <= 0)
-            throw new ArgumentException("El monto del gasto debe ser mayor a cero.");
+        if (typeof(ExpenseType).IsEnumDefined(dto.Type) == false)
+             throw new ArgumentException("El tipo de gasto no es válido.");
         var expense = new Expense
         {
             Id = Guid.NewGuid(),

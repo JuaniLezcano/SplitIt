@@ -1,7 +1,7 @@
-﻿using SplitIt.Application.Interfaces;
-using SplitIt.Application.Users.DTOs;
+﻿using SplitIt.Application.Business.Users.DTOs;
+using SplitIt.Application.Interfaces;
 
-namespace SplitIt.Application.Users.UseCases
+namespace SplitIt.Application.Business.Users.UseCases
 {
     public class LoginUserInteractor
     {

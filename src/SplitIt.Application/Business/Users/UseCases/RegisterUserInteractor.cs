@@ -1,8 +1,8 @@
-﻿using SplitIt.Application.Interfaces;
-using SplitIt.Application.Users.DTOs;
+﻿using SplitIt.Application.Business.Users.DTOs;
+using SplitIt.Application.Interfaces;
 using SplitIt.Domain.Entities;
 
-namespace SplitIt.Application.Users.UseCases
+namespace SplitIt.Application.Business.Users.UseCases
 {
     public class RegisterUserInteractor
     {

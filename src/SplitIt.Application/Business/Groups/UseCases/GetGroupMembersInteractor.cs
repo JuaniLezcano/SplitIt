@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using SplitIt.Application.Groups.DTOs;
+using SplitIt.Application.Business.Groups.DTOs;
 using SplitIt.Application.Interfaces;
 
-namespace SplitIt.Application.Groups.UseCases;
+namespace SplitIt.Application.Business.Groups.UseCases;
 
 public class GetGroupMembersInteractor
 {

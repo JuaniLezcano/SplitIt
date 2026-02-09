@@ -1,7 +1,7 @@
-﻿namespace SplitIt.Application.Groups.DTOs;
+﻿namespace SplitIt.Application.Business.Groups.DTOs;
 public class CreateGroupRequestDTO
 {
-    public string Name { get; set; } = default!;
+    public required string Name { get; set; }
     public string? Description { get; set; }
     public Guid AdminUserId { get; set; }
     public List<Guid> MemberUserIds { get; set; } = new();

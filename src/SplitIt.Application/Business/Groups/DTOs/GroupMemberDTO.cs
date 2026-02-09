@@ -1,4 +1,4 @@
-namespace SplitIt.Application.Groups.DTOs;
+namespace SplitIt.Application.Business.Groups.DTOs;
 
 public class GroupMemberDTO
 {

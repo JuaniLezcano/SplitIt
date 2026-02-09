@@ -1,8 +1,8 @@
-﻿using SplitIt.Application.Groups.DTOs;
+﻿using SplitIt.Application.Business.Groups.DTOs;
 using SplitIt.Application.Interfaces;
 using SplitIt.Domain.Entities;
 
-namespace SplitIt.Application.Groups.UseCases;
+namespace SplitIt.Application.Business.Groups.UseCases;
 
 public class CreateGroupWithMembersInteractor
 {

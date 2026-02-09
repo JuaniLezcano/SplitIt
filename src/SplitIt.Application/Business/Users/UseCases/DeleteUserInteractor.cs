@@ -1,7 +1,7 @@
 ﻿using SplitIt.Application.Interfaces;
 using SplitIt.Application.Users.DTOs;
 
-namespace SplitIt.Application.Users.UseCases
+namespace SplitIt.Application.Business.Users.UseCases
 {
     public class DeleteUserInteractor
     {
