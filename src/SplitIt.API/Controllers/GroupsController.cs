@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SplitIt.Application.Groups.DTOs;
-using SplitIt.Application.Groups.UseCases;
+using SplitIt.Application.Business.Groups.DTOs;
+using SplitIt.Application.Business.Groups.UseCases;
 using SplitIt.Persistence;
 
 [ApiController]

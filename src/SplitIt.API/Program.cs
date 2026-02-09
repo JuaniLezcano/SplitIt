@@ -1,12 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using SplitIt.API;
-using SplitIt.Application.Groups.UseCases;
+using SplitIt.Application.Behaviors;
+using SplitIt.Application.Business.Groups.UseCases;
+using SplitIt.Application.Business.Users.UseCases;
 using SplitIt.Application.Interfaces;
 using SplitIt.Application.Services;
-using SplitIt.Application.Users.UseCases;
 using SplitIt.Infrastructure.Services;
 using SplitIt.Persistence;
 using SplitIt.Persistence.Repositories;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +40,13 @@ builder.Services.AddScoped<UpdateUserInteractor>();
 builder.Services.AddScoped<CreateGroupWithMembersInteractor>();
 builder.Services.AddScoped<GetGroupMembersInteractor>();
 
+// MediatR and FluentValidation
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+    cfg.AddOpenBehavior(typeof(RequestResponseLoggingBehavior<,>));
+    cfg.AddBehavior(typeof(ValidationBehavior<,>));
+});
 
 var app = builder.Build();
 

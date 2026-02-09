@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SplitIt.Application.Users.DTOs;
-using SplitIt.Application.Users.UseCases;
+using SplitIt.Application.Business.Users.DTOs;
+using SplitIt.Application.Business.Users.UseCases;
 
 [ApiController]
 [Route("api/[controller]")]
