@@ -1,5 +1,4 @@
 ﻿using SplitIt.Application.Interfaces;
-using SplitIt.Application.Users.DTOs;
 
 namespace SplitIt.Application.Business.Users.UseCases
 {

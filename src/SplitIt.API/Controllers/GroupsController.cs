@@ -1,32 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SplitIt.Application.Business.Groups.DTOs;
-using SplitIt.Application.Business.Groups.UseCases;
-using SplitIt.Persistence;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using SplitIt.Application.Business.Groups.CreateGroup;
+
 
 [ApiController]
 [Route("api/[controller]")]
-public class GroupsController : ControllerBase
+public class GroupsController(IMediator mediator) : ControllerBase
 {
-    private readonly CreateGroupWithMembersInteractor _create;
-    private readonly GetGroupMembersInteractor _getMembers;
-
-    public GroupsController(CreateGroupWithMembersInteractor create, GetGroupMembersInteractor getMembers)
-    {
-        _create = create;
-        _getMembers = getMembers;
-    }
-
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CreateGroupRequestDTO req)
+    public async Task<IActionResult> Create([FromBody] CreateGroupCommand command, CancellationToken ct)
     {
-        var groupId = await _create.ExecuteAsync(req);
+        var groupId = await mediator.Send(command, ct);
         return Ok(new { GroupId = groupId });
-    }
-
-    [HttpGet("{groupId:guid}")]
-    public async Task<IActionResult> GetMembers(Guid groupId)
-    {
-        var members = await _getMembers.ExecuteAsync(groupId);
-        return Ok(members);
     }
 }
