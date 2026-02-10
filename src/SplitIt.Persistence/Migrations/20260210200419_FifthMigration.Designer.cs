@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SplitIt.Persistence;
@@ -11,9 +12,11 @@ using SplitIt.Persistence;
 namespace SplitIt.Persistence.Migrations
 {
     [DbContext(typeof(SplitItDbContext))]
-    partial class SplitItDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260210200419_FifthMigration")]
+    partial class FifthMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
