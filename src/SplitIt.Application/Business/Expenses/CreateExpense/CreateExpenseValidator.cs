@@ -1,7 +1,4 @@
 ﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SplitIt.Application.Business.Expenses.CreateExpense;
 public class CreateExpenseValidator : AbstractValidator<CreateExpenseCommand>
@@ -15,7 +12,7 @@ public class CreateExpenseValidator : AbstractValidator<CreateExpenseCommand>
             .IsInEnum().WithMessage("El tipo de gasto no es válido.");
         RuleFor(x => x.GroupId)
             .NotEmpty().WithMessage("El ID del grupo es obligatorio.");
-        RuleFor(x => x.CreatedByUserId)
+        RuleFor(x => x.CreatedByUserGroupId)
             .NotEmpty().WithMessage("El ID del usuario creador es obligatorio.");
     }
 }
